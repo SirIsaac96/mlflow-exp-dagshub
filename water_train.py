@@ -43,13 +43,13 @@ with mlflow.start_run():
     mlflow.log_artifact("GradientBoostingModel")
 
     # Save the trained model
-    pickle.dump(clf, open('gb_model.pkl', 'wb'))
+    pickle.dump(clf, open('model_gb.pkl', 'wb'))
 
     x_test = test_processed_data.iloc[:, 0:-1].values
     y_test = test_processed_data.iloc[:, -1].values
 
     from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-    model = pickle.load(open('gb_model.pkl', 'rb'))
+    model = pickle.load(open('model_gb.pkl', 'rb'))
 
     y_pred = model.predict(x_test)
 

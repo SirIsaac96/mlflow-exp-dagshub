@@ -1,0 +1,27 @@
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.7
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+mlflow_version: 3.4.0
+model_id: null
+<<<<<<< HEAD:GradientBoostingModel/MLmodel
+model_size_bytes: 1287168
+model_uuid: da336faf5ae640d8a2edbc77850d6edf
+prompts: null
+utc_time_created: '2025-09-24 19:03:06.388255'
+=======
+model_size_bytes: 10965325
+model_uuid: 7a62eb00fb5043e9a58c7a713bc710bb
+prompts: null
+utc_time_created: '2025-09-24 18:53:05.058198'
+>>>>>>> 5cb747ae70e8d0b71ad9cd98f1741735300d8396:RandomForestModel/MLmodel
