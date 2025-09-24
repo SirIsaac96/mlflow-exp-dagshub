@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import mlflow.sklearn
 import dagshub
+#import joblib
 
 dagshub.init(repo_owner='SirIsaac96', repo_name='mlflow-exp-dagshub', mlflow=True)
 
@@ -31,12 +32,15 @@ import pickle
 x_train = train_processed_data.iloc[:, 0:-1].values
 y_train = train_processed_data.iloc[:, -1].values
 
-n_estimators = 500
+n_estimators = 1000
 
 with mlflow.start_run():
 
     clf = GradientBoostingClassifier(n_estimators=n_estimators)
     clf.fit(x_train, y_train)
+
+    mlflow.sklearn.save_model(sk_model=clf, path="GradientBoostingModel")
+    mlflow.log_artifact("GradientBoostingModel")
 
     # Save the trained model
     pickle.dump(clf, open('model.pkl', 'wb'))
@@ -71,9 +75,14 @@ with mlflow.start_run():
 
     mlflow.log_artifact('confusion_matrix.png')
 
-    mlflow.sklearn.log_model(clf, "GradientBoostingClassifier")
+    # mlflow.sklearn.log_model(clf, "GraduentBoostingModel")
 
-    mlflow.log_artifact(__file__)
+    # Log this script
+    try:
+        mlflow.log_artifact(__file__)
+    except Exception:
+        # __file__ may not be available in some execution contexts (e.g. interactive shells)
+        pass
 
     mlflow.set_tag("author", "Isaac-Otom")
     mlflow.set_tag("model", "GB")

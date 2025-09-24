@@ -39,13 +39,13 @@ with mlflow.start_run():
     clf.fit(x_train, y_train)
 
     # Save the trained model
-    pickle.dump(clf, open('model.pkl', 'wb'))
+    pickle.dump(clf, open('rf_model.pkl', 'wb'))
 
     x_test = test_processed_data.iloc[:, 0:-1].values
     y_test = test_processed_data.iloc[:, -1].values
 
     from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-    model = pickle.load(open('model.pkl', 'rb'))
+    model = pickle.load(open('rf_model.pkl', 'rb'))
 
     y_pred = model.predict(x_test)
 
@@ -68,9 +68,9 @@ with mlflow.start_run():
     plt.title('Confusion Matrix')
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
-    plt.savefig('confusion_matrix.png')
+    plt.savefig('rf_confusion_matrix.png')
 
-    mlflow.log_artifact('confusion_matrix.png')
+    mlflow.log_artifact('rf_confusion_matrix.png')
 
     mlflow.sklearn.save_model(sk_model=clf, path="RandomForestModel")
     mlflow.log_artifact("RandomForestModel")
